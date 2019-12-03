@@ -33,19 +33,19 @@ class MyQueue:
             print(self.queue[-1])
 
 N = input()
-inVal = []
 que = MyQueue()
 for i in range(int(N)):
-    inVal = sys.stdin.readline().split()
-    if inVal.find('push') != -1:
-        que.push(inVal.split(sep=' ')[1])
-    elif inVal.find('pop') != -1:
+    inVal = list(sys.stdin.readline().split())
+
+    if inVal[0] == 'push':
+        que.push(inVal[1])
+    elif inVal[0] == 'pop':
         que.pop()
-    elif inVal.find('front') != -1:
+    elif inVal[0] == 'front':
         que.front()
-    elif inVal.find('back') != -1:
+    elif inVal[0] == 'back':
         que.back()
-    elif inVal.find('size') != -1:
+    elif inVal[0] == 'size':
         que.size()
     else:
         que.empty()
