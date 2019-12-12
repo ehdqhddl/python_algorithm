@@ -23,10 +23,10 @@ def bfs():
 
     for v in graph.values():
         will_visit_queue += v
-    while len(will_visit_queue) != 0:
+    while will_visit_queue:
         if will_visit_queue[0] not in visited_queue:
             visited_queue.append(will_visit_queue[0])
-            del will_visit_queue[0]
+            will_visit_queue.pop(0)
         else:
             del will_visit_queue[0]
     print(visited_queue)
