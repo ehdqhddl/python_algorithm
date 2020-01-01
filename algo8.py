@@ -26,27 +26,56 @@ class Heap:
                 break
         return True
 
+    def move_down(self, head_idx):
+        left_idx = head_idx * 2
+        right_idx = head_idx * 2 + 1
+
+        if left_idx >= len(self.heap_array):    # 왼쪽 자식 노드가 없을 떄
+            return False
+        elif right_idx >= len(self.heap_array):     # 오른쪽 자식 노드만 없을 떄
+            if self.heap_array[head_idx] < self.heap_array[left_idx]:
+                return True
+            else:
+                return False
+        else:
+            if self.heap_array[left_idx] > self.heap_array[right_idx]:
+                if self.heap_array[head_idx] < self.heap_array[left_idx]:
+                    return True
+                else:
+                    return False
+            else:
+                if self.heap_array[head_idx] < self.heap_array[right_idx]:
+                    return True
+                else:
+                    return False
+
     def delete(self):
-        if len(self.heap_array) == 0:
+        if len(self.heap_array) <= 1:
             print('Here is nothing!')
         head_idx = 1
         return_value = heap.heap_array[1]
-        heap.heap_array[1] = heap.heap_array[len(self.heap_array)-1]
-        del heap.heap_array[len(self.heap_array)-1]
+        heap.heap_array[1] = heap.heap_array[-1]
+        del heap.heap_array[-1]
 
-        while self.heap_array[head_idx] < max(self.heap_array[head_idx * 2], self.heap_array[(head_idx * 2) + 1]):
-            if self.heap_array[head_idx * 2] > self.heap_array[(head_idx * 2) + 1]:
-                self.heap_array[head_idx], self.heap_array[head_idx * 2] \
-                    = self.heap_array[head_idx * 2], self.heap_array[head_idx]
-                head_idx = head_idx * 2
-                if (head_idx * 2) + 1 > len(self.heap_array) - 1:
-                    return return_value
+        while self.move_down(head_idx):
+            left_idx = head_idx * 2
+            right_idx = head_idx * 2 + 1
+
+            if right_idx >= len(self.heap_array):  # 오른쪽 자식 노드만 없을 떄
+                if self.heap_array[head_idx] < self.heap_array[left_idx]:
+                    self.heap_array[head_idx], self.heap_array[left_idx] \
+                        = self.heap_array[left_idx], self.heap_array[head_idx]
             else:
-                self.heap_array[head_idx], self.heap_array[(head_idx * 2) + 1] \
-                    = self.heap_array[(head_idx * 2) + 1], self.heap_array[head_idx]
-                head_idx = (head_idx * 2) + 1
-                if head_idx * 2 > len(self.heap_array) - 1:
-                    return return_value
+                if self.heap_array[left_idx] > self.heap_array[right_idx]:
+                    if self.heap_array[head_idx] < self.heap_array[left_idx]:
+                        return True
+                    else:
+                        return False
+                else:
+                    if self.heap_array[head_idx] < self.heap_array[right_idx]:
+                        return True
+                    else:
+                        return False
 
 
 heap = Heap(15)
